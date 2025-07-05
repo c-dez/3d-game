@@ -5,6 +5,8 @@ extends CharacterBody3D
 const SPEED: float = 5.0
 const JUMP_VELOCITY: float = 4.5
 
+@onready var visuals:MeshInstance3D = get_node("Visuals")
+
 
 func _physics_process(_delta: float) -> void:
 	move()
@@ -32,7 +34,6 @@ func jump() -> void:
 		velocity.y = JUMP_VELOCITY
 
 
-func gravity(_delta) -> void:
-	# Add the gravity.
+func gravity(_delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * _delta

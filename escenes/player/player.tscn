@@ -13,7 +13,8 @@ script = ExtResource("1_jc7hd")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_82eut")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="Visuals" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_jc7hd")
 
-[node name="PlayerCamera" parent="." instance=ExtResource("2_sniej")]
+[node name="PlayerCamera" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_sniej")]
+player = NodePath("..")
