@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://c6i1bgtyhwimm"]
+
+[ext_resource type="PackedScene" uid="uid://cmshly5qv2v42" path="res://escenes/player/player.tscn" id="1_1a6sk"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wkcf0"]
+albedo_color = Color(0.404511, 0.404511, 0.404511, 1)
+
+[node name="World" type="Node3D"]
+
+[node name="Floor" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.329976, 0)
+use_collision = true
+size = Vector3(100, 1, 100)
+material = SubResource("StandardMaterial3D_wkcf0")
+
+[node name="Player" parent="." instance=ExtResource("1_1a6sk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
