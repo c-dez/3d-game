@@ -2,8 +2,8 @@ class_name Player
 extends CharacterBody3D
 
 
-const SPEED = 5.0
-const JUMP_VELOCITY = 4.5
+const SPEED: float = 5.0
+const JUMP_VELOCITY: float = 4.5
 
 
 func _physics_process(_delta: float) -> void:
@@ -16,8 +16,8 @@ func _physics_process(_delta: float) -> void:
 
 
 func move() -> void:
-	var input_dir := Input.get_vector(Keybindings.left, Keybindings.right, Keybindings.forward, Keybindings.backwards)
-	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	var input_dir: Vector2 = Input.get_vector(Keybindings.left, Keybindings.right, Keybindings.forward, Keybindings.backwards)
+	var direction: Vector3 = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
