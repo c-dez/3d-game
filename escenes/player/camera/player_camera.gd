@@ -16,9 +16,14 @@ func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _process(_delta: float) -> void:
-	print(camera_input_direction)
+	var degres:int = 30
+	# vertical
 	rotation.x -= camera_input_direction.y * _delta
-	rotation.y -= camera_input_direction.x * _delta
+	#horizontal
+	rotation.y -= camera_input_direction.x * _delta 
+	# x clamp(vertical)
+	rotation.x = clamp(rotation.x, deg_to_rad(-degres), deg_to_rad(degres))
+	#reset
 	camera_input_direction = Vector2.ZERO
 
 
