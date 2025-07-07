@@ -5,7 +5,7 @@ extends CharacterBody3D
 @export var player_camera: PlayerCamera
 # movement
 var move_speed: float = 8.0
-var jump_force: float = 4.5
+# var jump_force: float = 4.5
 
 # variables para rotar mesh segun la direccion de movimiento
 @onready var skin: MeshInstance3D = get_node("Visuals")
@@ -13,7 +13,7 @@ var last_movement_direction := Vector3.FORWARD
 var rotation_speed: float = 12.0
 
 # better jump
-var jump_height: float = 1.0
+var jump_height: float = 8.0
 var jump_time_to_peak: float = 0.4
 var jump_time_to_descend: float = 0.5
 var jump_velocity
@@ -32,7 +32,7 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	move()
-	jump()
+	jump(_delta)
 	gravity(_delta)
 
 	move_and_slide()
@@ -74,9 +74,15 @@ func move() -> void:
 	rotate_skin(direction)
 
 
-func jump() -> void:
+func jump(_delta:float) -> void:
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = jump_force
+		velocity.y = jump_velocity
+	if not is_on_floor():
+		if velocity.y < 0.0:
+			velocity.y -=jump_fall_gravity * _delta
+		else:
+			velocity.y -= jump_gravity * _delta
+
 
 
 func gravity(_delta: float) -> void:
