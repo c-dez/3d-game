@@ -74,7 +74,7 @@ func gravity(_delta: float) -> void:
 func debug_start() -> void:
 	# codigos para reportar errores
 	if player_camera is not PlayerCamera:
-		printerr("player_camara reference is invalid")
+		printerr("referencia a  '@export var player_camera :PlayerCamera' es incorrecta")
 		set_process(false)
 
 	if not Keybindings:
