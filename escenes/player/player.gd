@@ -3,9 +3,8 @@ extends CharacterBody3D
 
 
 @export var player_camera: PlayerCamera
-# movement
+
 var move_speed: float = 8.0
-# var jump_force: float = 4.5
 
 # variables para rotar mesh segun la direccion de movimiento
 @onready var skin: MeshInstance3D = get_node("Visuals")
@@ -13,9 +12,11 @@ var last_movement_direction := Vector3.FORWARD
 var rotation_speed: float = 12.0
 
 # better jump
+# la conbinacion de estas variables modifica propiedades de salto y gravedad
 var jump_height: float = 8.0
 var jump_time_to_peak: float = 0.4
 var jump_time_to_descend: float = 0.5
+# se calcula en calculate_better_jump()
 var jump_velocity
 var jump_gravity
 var jump_fall_gravity
@@ -23,12 +24,8 @@ var jump_fall_gravity
 
 func _ready() -> void:
 	debug_start()
-
-	jump_velocity = 2.0 * jump_height / jump_time_to_peak
-	jump_gravity = 2.0 * jump_height / (jump_time_to_peak * jump_time_to_peak)
-	jump_fall_gravity = 2.0 * jump_height / (jump_time_to_descend * jump_time_to_descend)
-
-
+	calculate_better_jump()
+	
 
 func _physics_process(_delta: float) -> void:
 	move()
@@ -74,15 +71,14 @@ func move() -> void:
 	rotate_skin(direction)
 
 
-func jump(_delta:float) -> void:
+func jump(_delta: float) -> void:
 	if Input.is_action_just_pressed(Keybindings.jump) and is_on_floor():
 		velocity.y = jump_velocity
 	if not is_on_floor():
 		if velocity.y < 0.0:
-			velocity.y -=jump_fall_gravity * _delta
+			velocity.y -= jump_fall_gravity * _delta
 		else:
 			velocity.y -= jump_gravity * _delta
-
 
 
 func gravity(_delta: float) -> void:
@@ -96,6 +92,8 @@ func debug_start() -> void:
 		printerr("referencia a  '@export var player_camera :PlayerCamera' es incorrecta")
 		set_process(false)
 
-	if not Keybindings:
-		printerr("keybindings son referenciados en autoload Keybindings.gs")
-		set_process(false)
+
+func calculate_better_jump() -> void:
+	jump_velocity = 2.0 * jump_height / jump_time_to_peak
+	jump_gravity = 2.0 * jump_height / (jump_time_to_peak * jump_time_to_peak)
+	jump_fall_gravity = 2.0 * jump_height / (jump_time_to_descend * jump_time_to_descend)
