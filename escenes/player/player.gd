@@ -2,22 +2,40 @@ class_name Player
 extends CharacterBody3D
 
 
+@export var player_camera: PlayerCamera
+# movement
 const SPEED: float = 8.0
 const JUMP_VELOCITY: float = 4.5
 
-@export var player_camera: PlayerCamera
-@onready var visuals: MeshInstance3D = get_node("Visuals")
+# variables para rotar mesh segun la direccion de movimiento
+@onready var skin: MeshInstance3D = get_node("Visuals")
+var last_movement_direction := Vector3.FORWARD
+var rotation_speed: float = 12.0
+
 
 func _ready() -> void:
 	debug_start()
+
 
 func _physics_process(_delta: float) -> void:
 	move()
 	jump()
 	gravity(_delta)
 
-
 	move_and_slide()
+
+
+func rotate_skin(direction: Vector3) -> void:
+	var _delta: float = get_process_delta_time()
+
+	if direction.length() > 0.5:
+		last_movement_direction = direction
+
+	# Calculamos el ángulo Y en el plano XZ
+	var target_angle = atan2(last_movement_direction.x, last_movement_direction.z) + PI
+	
+	# Interpolación suave usando lerp_angle
+	skin.rotation.y = lerp_angle(skin.rotation.y, target_angle, rotation_speed * _delta)
 
 
 func move() -> void:
@@ -27,10 +45,10 @@ func move() -> void:
 	# obtiene los vectores de la camara
 	var forward: Vector3 = player_camera.global_basis.z
 	var right: Vector3 = player_camera.global_basis.x
-	# ignorar  y de forward/right para mantener movimiento en z x constante
+	# ignorar Y de forward/right para mantener movimiento en Z X constante
 	forward.y = 0
 	right.y = 0
-	# combina los valores de camera vars y raw_input para crear un Vector3 para que "enfrente" siempre sea hacia donde la camara mira
+	# combina los valores forward/right y raw_input para crear un Vector3 para que "enfrente" siempre sea hacia donde la camara mira
 	var direction: Vector3 = forward * raw_input.y + right * raw_input.x
 	direction = direction.normalized()
 	if direction != Vector3.ZERO:
@@ -39,6 +57,8 @@ func move() -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
+	# rotate skin
+	rotate_skin(direction)
 
 
 func jump() -> void:
@@ -52,6 +72,11 @@ func gravity(_delta: float) -> void:
 
 
 func debug_start() -> void:
-	# codigos para prevenir errores en _start
+	# codigos para reportar errores
 	if player_camera is not PlayerCamera:
 		printerr("player_camara reference is invalid")
+		set_process(false)
+
+	if not Keybindings:
+		printerr("keybindings son referenciados en autoload Keybindings.gs")
+		set_process(false)
