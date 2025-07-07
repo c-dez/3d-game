@@ -4,17 +4,30 @@ extends CharacterBody3D
 
 @export var player_camera: PlayerCamera
 # movement
-const SPEED: float = 8.0
-const JUMP_VELOCITY: float = 4.5
+var move_speed: float = 8.0
+var jump_force: float = 4.5
 
 # variables para rotar mesh segun la direccion de movimiento
 @onready var skin: MeshInstance3D = get_node("Visuals")
 var last_movement_direction := Vector3.FORWARD
 var rotation_speed: float = 12.0
 
+# better jump
+var jump_height: float = 1.0
+var jump_time_to_peak: float = 0.4
+var jump_time_to_descend: float = 0.5
+var jump_velocity
+var jump_gravity
+var jump_fall_gravity
+
 
 func _ready() -> void:
 	debug_start()
+
+	jump_velocity = 2.0 * jump_height / jump_time_to_peak
+	jump_gravity = 2.0 * jump_height / (jump_time_to_peak * jump_time_to_peak)
+	jump_fall_gravity = 2.0 * jump_height / (jump_time_to_descend * jump_time_to_descend)
+
 
 
 func _physics_process(_delta: float) -> void:
@@ -52,18 +65,18 @@ func move() -> void:
 	var direction: Vector3 = forward * raw_input.y + right * raw_input.x
 	direction = direction.normalized()
 	if direction != Vector3.ZERO:
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
+		velocity.x = direction.x * move_speed
+		velocity.z = direction.z * move_speed
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
+		velocity.x = move_toward(velocity.x, 0, move_speed)
+		velocity.z = move_toward(velocity.z, 0, move_speed)
 	# rotate skin
 	rotate_skin(direction)
 
 
 func jump() -> void:
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+		velocity.y = jump_force
 
 
 func gravity(_delta: float) -> void:
