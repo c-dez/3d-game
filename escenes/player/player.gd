@@ -70,7 +70,7 @@ func move() -> void:
 
 
 func jump(_delta: float) -> void:
-	if Input.is_action_just_pressed(Keybindings.jump) and is_on_floor():
+	if Keybindings.buffer_jump() and is_on_floor():
 		velocity.y = jump_velocity
 	if not is_on_floor():
 		if velocity.y < 0.0:

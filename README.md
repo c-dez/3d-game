@@ -11,5 +11,6 @@
     - Rota mesh para que mire hacia direccion de movimiento
 
 - Implementado better jump
+- Anadido funcion para que jump tenga buffer input
 
 # Pendiente
