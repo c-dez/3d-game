@@ -1,7 +1,8 @@
 {
-    "godotTools.editorPath.godot4": "/home/cdez/.myApps/Godot_v4.4.1-stable_linux.x86_64",
+    "godotTools.editorPath.godot4": "/home/c-dez/.local/bin/godot/Godot_v4.4.1-stable_linux.x86_64",
         "files.exclude": {
-  "**/*.uid": true
+  "**/*.uid": true,
+  "**/*.tscn": true,
 }
     
 }

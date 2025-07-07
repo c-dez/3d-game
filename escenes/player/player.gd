@@ -12,7 +12,7 @@ func _physics_process(_delta: float) -> void:
 	move()
 	jump()
 	gravity(_delta)
-	
+
 
 	move_and_slide()
 
@@ -37,3 +37,6 @@ func jump() -> void:
 func gravity(_delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * _delta
+
+
+# entonces helix?
