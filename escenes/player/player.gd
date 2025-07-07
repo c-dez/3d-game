@@ -1,10 +1,8 @@
 class_name Player
 extends CharacterBody3D
 
-
-@export var player_camera: PlayerCamera
-
-var move_speed: float = 8.0
+@export_group("Movimiento")
+@export var move_speed: float = 8.0
 
 # variables para rotar mesh segun la direccion de movimiento
 @onready var skin: MeshInstance3D = get_node("Visuals")
@@ -13,13 +11,17 @@ const ROTATION_SPEED: float = 12.0
 
 # better jump
 # la combinacion de estas variables modifica propiedades de salto y gravedad
-var jump_height: float = 8.0
-var jump_time_to_peak: float = 0.4
-var jump_time_to_descend: float = 0.5
+@export_group("Salto")
+@export var jump_height: float = 8.0
+@export var jump_time_to_peak: float = 0.4
+@export var jump_time_to_descend: float = 0.5
 # se calcula en calculate_better_jump()
 var jump_velocity
 var jump_gravity
 var jump_fall_gravity
+
+# Referencia a camera
+@onready var player_camera: PlayerCamera = get_node("PlayerCamera")
 
 
 func _ready() -> void:
@@ -39,7 +41,7 @@ func rotate_skin(direction: Vector3) -> void:
 	if direction.length() > 0.5:
 		last_movement_direction = direction
 
-	# Calculamos el ángulo Y en el plano XZ
+	# Calculamos el ángulo Y(rotacion horizontal) en el plano XZ
 	var target_angle = atan2(last_movement_direction.x, last_movement_direction.z) + PI
 	
 	# Interpolación suave usando lerp_angle
