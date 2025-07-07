@@ -5,8 +5,12 @@ extends CharacterBody3D
 const SPEED: float = 5.0
 const JUMP_VELOCITY: float = 4.5
 
+@export var player_camera : PlayerCamera
 @onready var visuals:MeshInstance3D = get_node("Visuals")
 
+func _ready() -> void:
+	if player_camera is not PlayerCamera:
+		printerr("player_camara reference is invalid")
 
 func _physics_process(_delta: float) -> void:
 	move()

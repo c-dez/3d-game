@@ -16,6 +16,5 @@ shape = SubResource("CapsuleShape3D_82eut")
 [node name="Visuals" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_jc7hd")
 
-[node name="PlayerCamera" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_sniej")]
+[node name="PlayerCamera" parent="." instance=ExtResource("2_sniej")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.812631, 0)
-player = NodePath("..")
