@@ -9,10 +9,10 @@ var move_speed: float = 8.0
 # variables para rotar mesh segun la direccion de movimiento
 @onready var skin: MeshInstance3D = get_node("Visuals")
 var last_movement_direction := Vector3.FORWARD
-var rotation_speed: float = 12.0
+const ROTATION_SPEED: float = 12.0
 
 # better jump
-# la conbinacion de estas variables modifica propiedades de salto y gravedad
+# la combinacion de estas variables modifica propiedades de salto y gravedad
 var jump_height: float = 8.0
 var jump_time_to_peak: float = 0.4
 var jump_time_to_descend: float = 0.5
@@ -30,8 +30,6 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	move()
 	jump(_delta)
-	gravity(_delta)
-
 	move_and_slide()
 
 
@@ -45,7 +43,7 @@ func rotate_skin(direction: Vector3) -> void:
 	var target_angle = atan2(last_movement_direction.x, last_movement_direction.z) + PI
 	
 	# Interpolación suave usando lerp_angle
-	skin.rotation.y = lerp_angle(skin.rotation.y, target_angle, rotation_speed * _delta)
+	skin.rotation.y = lerp_angle(skin.rotation.y, target_angle, ROTATION_SPEED * _delta)
 
 
 func move() -> void:
@@ -79,11 +77,6 @@ func jump(_delta: float) -> void:
 			velocity.y -= jump_fall_gravity * _delta
 		else:
 			velocity.y -= jump_gravity * _delta
-
-
-func gravity(_delta: float) -> void:
-	if not is_on_floor():
-		velocity += get_gravity() * _delta
 
 
 func debug_start() -> void:
