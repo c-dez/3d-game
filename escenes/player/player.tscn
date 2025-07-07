@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cmshly5qv2v42"]
+[gd_scene load_steps=7 format=3 uid="uid://cmshly5qv2v42"]
 
 [ext_resource type="Script" uid="uid://bf2kc7nr8lpar" path="res://escenes/player/player.gd" id="1_jc7hd"]
 [ext_resource type="PackedScene" uid="uid://c3u4sjxsaosi3" path="res://escenes/player/camera/player_camera.tscn" id="2_sniej"]
@@ -7,14 +7,25 @@
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_jc7hd"]
 
-[node name="Player" type="CharacterBody3D"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sniej"]
+albedo_color = Color(1, 0.0392157, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6mcrl"]
+material = SubResource("StandardMaterial3D_sniej")
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("player_camera")]
 script = ExtResource("1_jc7hd")
+player_camera = NodePath("PlayerCamera")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_82eut")
 
 [node name="Visuals" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_jc7hd")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Visuals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.376285, -0.670031)
+mesh = SubResource("BoxMesh_6mcrl")
 
 [node name="PlayerCamera" parent="." instance=ExtResource("2_sniej")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.812631, 0)
