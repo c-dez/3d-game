@@ -26,6 +26,9 @@ var _jump_fall_gravity
 var _coyote_time_max: float = 0.2
 var _coyote_time_counter: float = 0.0
 
+# Actions node
+@onready var actions:Actions = get_node("Actions")
+
 
 
 func _ready() -> void:
@@ -41,8 +44,7 @@ func _physics_process(_delta: float) -> void:
 			jump(_delta)
 			coyote_time_jump(_delta)
 		MoveStateMachine.STATE.CLIMBING:
-			get_node("Actions").climb()
-			# get_node("Actions").descend()
+			actions.climb()
 			pass
 		_:
 			pass
