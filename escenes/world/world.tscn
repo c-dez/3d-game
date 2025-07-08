@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://c6i1bgtyhwimm"]
+[gd_scene load_steps=7 format=3 uid="uid://c6i1bgtyhwimm"]
 
 [ext_resource type="PackedScene" uid="uid://cmshly5qv2v42" path="res://escenes/player/player.tscn" id="1_1a6sk"]
+[ext_resource type="PackedScene" uid="uid://bhskg4fqt6gqh" path="res://assets/ladder.tscn" id="2_2myj7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1a6sk"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -28,21 +29,44 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 use_collision = true
 size = Vector3(100, 1, 100)
 material = SubResource("StandardMaterial3D_wkcf0")
+metadata/_edit_lock_ = true
 
 [node name="Player" parent="." instance=ExtResource("1_1a6sk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.3347, 2, 24.7364)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -7)
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
 use_collision = true
-size = Vector3(5, 5, 5)
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.00634, 2.5, -7)
-use_collision = true
-size = Vector3(5, 5, 5)
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 50, 0)
+radius = 10.0
+height = 100.0
 
-[node name="CSGBox3D3" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.1248, 2.5, -7)
-use_collision = true
-size = Vector3(5, 5, 5)
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 50, 0)
+operation = 2
+radius = 9.0
+height = 100.0
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.40778, 0)
+radius = 20.0
+height = 1.0
+
+[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0325527, 11.4538, 0.00902557)
+radius = 20.0
+height = 1.0
+
+[node name="CSGCylinder3D5" type="CSGCylinder3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0325527, 21.4538, 0.00902557)
+radius = 20.0
+height = 1.0
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(0.935426, 0, -0.353524, 0, 1.8, 0, 0.353524, 0, 0.935426, -2.98835, 11.8514, 9.90094)
+operation = 2
+size = Vector3(3.05981, 1, 2.46582)
+
+[node name="Ladder" parent="." instance=ExtResource("2_2myj7")]
+transform = Transform3D(0.947813, 0, -0.318827, 0, 1.29938, 0, 0.318827, 0, 0.947813, -2.43067, 8.40056, 9.27734)
