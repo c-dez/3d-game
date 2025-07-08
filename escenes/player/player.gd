@@ -22,6 +22,7 @@ var jump_fall_gravity
 
 @onready var player_camera: PlayerCamera = get_node("PlayerCamera")
 
+#coyote time
 
 func _ready() -> void:
 	debug_start()
@@ -33,6 +34,7 @@ func _physics_process(_delta: float) -> void:
 	jump(_delta)
 	move_and_slide()
 	set_skin_visible_by_camera_distance(1.0)
+	
 
 
 func rotate_skin(direction: Vector3) -> void:
