@@ -1,8 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://c3u4sjxsaosi3"]
+[gd_scene load_steps=3 format=3 uid="uid://c3u4sjxsaosi3"]
 
 [ext_resource type="Script" uid="uid://c3axcn4brk1qh" path="res://escenes/player/camera/player_camera.gd" id="1_o66et"]
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_o66et"]
+
 [node name="PlayerCamera" type="SpringArm3D"]
+shape = SubResource("SphereShape3D_o66et")
 spring_length = 5.0
 script = ExtResource("1_o66et")
 

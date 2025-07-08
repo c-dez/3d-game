@@ -25,6 +25,7 @@ func _process(_delta: float) -> void:
 	camera_input_direction = Vector2.ZERO
 
 
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		camera_input_direction = event.screen_relative * mouse_sens

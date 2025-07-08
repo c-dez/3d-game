@@ -12,9 +12,11 @@ albedo_color = Color(1, 0.0392157, 1, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_6mcrl"]
 material = SubResource("StandardMaterial3D_sniej")
+size = Vector3(0.895, 0.515, 0.285)
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_jc7hd")
+jump_height = 5.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_82eut")
@@ -23,7 +25,7 @@ shape = SubResource("CapsuleShape3D_82eut")
 mesh = SubResource("CapsuleMesh_jc7hd")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Visuals"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.376285, -0.670031)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.376285, -0.494331)
 mesh = SubResource("BoxMesh_6mcrl")
 
 [node name="PlayerCamera" parent="." instance=ExtResource("2_sniej")]

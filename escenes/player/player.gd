@@ -20,7 +20,6 @@ var jump_velocity
 var jump_gravity
 var jump_fall_gravity
 
-# Referencia a camera
 @onready var player_camera: PlayerCamera = get_node("PlayerCamera")
 
 
@@ -33,6 +32,7 @@ func _physics_process(_delta: float) -> void:
 	move()
 	jump(_delta)
 	move_and_slide()
+	hide_skin_on_camera_too_close()
 
 
 func rotate_skin(direction: Vector3) -> void:
@@ -47,6 +47,12 @@ func rotate_skin(direction: Vector3) -> void:
 	# Interpolación suave usando lerp_angle
 	skin.rotation.y = lerp_angle(skin.rotation.y, target_angle, ROTATION_SPEED * _delta)
 
+func hide_skin_on_camera_too_close() ->void:
+	var camera_distance:float = 1.0
+	if player_camera.get_hit_length() < camera_distance:
+		skin.visible = false
+	else:
+		skin.visible = true
 
 func move() -> void:
 	# movimiento normalizado combinando los inputs de jugador con la direccion de que la camera mira
