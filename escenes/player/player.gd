@@ -34,10 +34,22 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
+	match MoveStateMachine.current_state:
+
+		MoveStateMachine.STATE.MOVING:
+			move()
+			jump(_delta)
+			coyote_time_jump(_delta)
+		MoveStateMachine.STATE.CLIMBING:
+			get_node("Actions").climb()
+			# get_node("Actions").descend()
+			pass
+		_:
+			pass
+
+
+
 	set_skin_visible_by_camera_distance(1.0)
-	move()
-	jump(_delta)
-	coyote_time_jump(_delta)
 	move_and_slide()
 
 

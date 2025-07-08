@@ -26,6 +26,10 @@ func _ready() -> void:
 	buffer_timers_settup()
 	pass
 
+func _process(_delta: float) -> void:
+	# state_keys()
+	pass
+
 
 func buffer_jump() -> bool:
 	#input buffer
@@ -44,30 +48,28 @@ func buffer_timers_settup() -> void:
 # un state machine da seguimiento a estado moverse, escalando escalera
 # dependiendo de el estado se asignan y desasignan keybindings
 
-func state_keys() -> void:
-	match MoveStateMachine.current_state:
-		MoveStateMachine.STATE.MOVING:
-			# clear_keys()
-			assign_moving_keys()
-		MoveStateMachine.STATE.CLIMBING:
-			clear_keys()
-			assign_climbing_keys()
+# func state_keys() -> void:
+# 	match MoveStateMachine.current_state:
+# 		MoveStateMachine.STATE.MOVING:
+# 			assign_moving_keys()
+# 		MoveStateMachine.STATE.CLIMBING:
+# 			assign_climbing_keys()
 			
-		_:
-			pass
+# 		_:
+# 			pass
 
-func assign_moving_keys():
-	forward = "forward"
-	backwards = "backwards"
-	left = "left"
-	right = "right"
+# func assign_moving_keys():
+# 	forward = "forward"
+# 	backwards = "backwards"
+# 	left = "left"
+# 	right = "right"
 
-func assign_climbing_keys():
-	climb = "forward"
-	descend = "backwards"
+# func assign_climbing_keys():
+# 	climb = "forward"
+# 	descend = "backwards"
 
-func clear_keys():
-	forward = ""
-	backwards = ""
-	left = ""
-	right = ""
+# func clear_keys():
+# 	forward = ""
+# 	backwards = ""
+# 	left = ""
+# 	right = ""
