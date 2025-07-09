@@ -58,15 +58,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0325527, 11.4538, 0.0090255
 radius = 20.0
 height = 1.0
 
-[node name="CSGCylinder3D5" type="CSGCylinder3D" parent="CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0325527, 21.4538, 0.00902557)
-radius = 20.0
-height = 1.0
-
 [node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
 transform = Transform3D(0.935426, 0, -0.353524, 0, 1.8, 0, 0.353524, 0, 0.935426, -2.98835, 11.8514, 9.90094)
 operation = 2
 size = Vector3(3.05981, 1, 2.46582)
 
 [node name="Ladder" parent="." instance=ExtResource("2_2myj7")]
-transform = Transform3D(0.947813, 0, -0.318827, 0, 1.29938, 0, 0.318827, 0, 0.947813, -2.43067, 8.40056, 9.27734)
+transform = Transform3D(0.947813, 0, -0.318827, 0, 5.02974, 0, 0.318827, 0, 0.947813, -2.43067, 29.7452, 9.27734)
+
+[node name="Ladder3" parent="." instance=ExtResource("2_2myj7")]
+transform = Transform3D(0.9241, 0, -0.382151, 0, 5.02975, 0, 0.382151, 0, 0.9241, -4.62054, 29.7452, 8.5787)
+
+[node name="Ladder2" parent="." instance=ExtResource("2_2myj7")]
+transform = Transform3D(0.999636, 0, -0.0269621, 0, 2.21922, 0, 0.0269621, 0, 0.999636, 0.635624, 24.164, 10.1957)

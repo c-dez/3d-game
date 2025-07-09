@@ -31,7 +31,6 @@ var _coyote_time_counter: float = 0.0
 
 
 func _ready() -> void:
-	debug_start()
 	calculate_better_jump()
 
 
@@ -41,8 +40,10 @@ func _physics_process(_delta: float) -> void:
 			move()
 			jump(_delta)
 			coyote_time_jump(_delta)
+
 		MoveStateMachine.STATE.CLIMBING:
 			actions.climb()
+			actions.jump_climb()
 		_:
 			pass
 
@@ -111,13 +112,6 @@ func jump(_delta: float) -> void:
 			velocity.y -= _jump_fall_gravity * _delta
 		else:
 			velocity.y -= _jump_gravity * _delta
-
-
-func debug_start() -> void:
-	# codigos para reportar errores
-	if player_camera is not PlayerCamera:
-		printerr("referencia a  '@export var player_camera :PlayerCamera' es incorrecta")
-		set_process(false)
 
 
 func calculate_better_jump() -> void:
