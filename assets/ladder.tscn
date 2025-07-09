@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://bhskg4fqt6gqh"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eqsx1"]
+albedo_color = Color(0.715346, 0.701092, 1.15514e-06, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iqvwo"]
+albedo_color = Color(1, 0.576471, 1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_eqsx1"]
+size = Vector3(1, 10, 1)
+
+[node name="Ladder" type="CSGBox3D"]
+use_collision = true
+size = Vector3(1, 10, 0.5)
+material = SubResource("StandardMaterial3D_eqsx1")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0151321, 0, 0.0720116)
+operation = 2
+size = Vector3(0.715, 10, 0.415)
+material = SubResource("StandardMaterial3D_iqvwo")
+
+[node name="LadderArea" type="Area3D" parent="." groups=["Ladder"]]
+monitoring = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LadderArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.246859)
+shape = SubResource("BoxShape3D_eqsx1")

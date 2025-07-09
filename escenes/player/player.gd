@@ -4,37 +4,52 @@ extends CharacterBody3D
 @export_group("Movimiento")
 @export var move_speed: float = 8.0
 
-# variables para rotar mesh segun la direccion de movimiento
-@onready var skin: MeshInstance3D = get_node("Visuals")
-var last_movement_direction := Vector3.FORWARD
-const ROTATION_SPEED: float = 12.0
-
 # better jump
 # la combinacion de estas variables modifica propiedades de salto y gravedad
 @export_group("Salto")
 @export var jump_height: float = 8.0
 @export var jump_time_to_peak: float = 0.4
 @export var jump_time_to_descend: float = 0.5
-# se calcula en calculate_better_jump()
-var jump_velocity
-var jump_gravity
-var jump_fall_gravity
 
+# variables para rotar mesh segun la direccion de movimiento
 @onready var player_camera: PlayerCamera = get_node("PlayerCamera")
+@onready var skin: MeshInstance3D = get_node("Visuals")
+var last_movement_direction := Vector3.FORWARD
+const _ROTATION_SPEED: float = 12.0
+
+# se calcula en calculate_better_jump()
+var _jump_velocity
+var _jump_gravity
+var _jump_fall_gravity
 
 #coyote time
+var _coyote_time_max: float = 0.2
+var _coyote_time_counter: float = 0.0
+
+# Actions node
+@onready var actions: Actions = get_node("Actions")
+
 
 func _ready() -> void:
-	debug_start()
 	calculate_better_jump()
-	
+
 
 func _physics_process(_delta: float) -> void:
-	move()
-	jump(_delta)
-	move_and_slide()
+	match MoveStateMachine.current_state:
+		MoveStateMachine.STATE.MOVING:
+			move()
+			jump(_delta)
+			coyote_time_jump(_delta)
+
+		MoveStateMachine.STATE.CLIMBING:
+			actions.climb()
+			actions.jump_climb()
+		_:
+			pass
+
+
 	set_skin_visible_by_camera_distance(1.0)
-	
+	move_and_slide()
 
 
 func rotate_skin(direction: Vector3) -> void:
@@ -47,11 +62,11 @@ func rotate_skin(direction: Vector3) -> void:
 	var target_angle = atan2(last_movement_direction.x, last_movement_direction.z) + PI
 	
 	# Interpolación suave usando lerp_angle
-	skin.rotation.y = lerp_angle(skin.rotation.y, target_angle, ROTATION_SPEED * _delta)
+	skin.rotation.y = lerp_angle(skin.rotation.y, target_angle, _ROTATION_SPEED * _delta)
 
 
-func set_skin_visible_by_camera_distance(threshold: float) -> void:
-	skin.visible = player_camera.get_hit_length() > threshold
+func set_skin_visible_by_camera_distance(camera_distance_threshold: float) -> void:
+	skin.visible = player_camera.get_hit_length() > camera_distance_threshold
 
 
 func move() -> void:
@@ -77,24 +92,29 @@ func move() -> void:
 	rotate_skin(direction)
 
 
+func coyote_time_jump(_delta) -> void:
+	# cuando no esta en suelo empieza cuenta regresiva
+	if is_on_floor():
+		_coyote_time_counter = _coyote_time_max
+	else:
+		_coyote_time_counter -= _delta
+	# coyote jump
+	if not is_on_floor() and _coyote_time_counter > 0:
+		if Input.is_action_just_pressed(Keybindings.jump):
+			velocity.y = _jump_velocity
+
+
 func jump(_delta: float) -> void:
 	if Keybindings.buffer_jump() and is_on_floor():
-		velocity.y = jump_velocity
+		velocity.y = _jump_velocity
 	if not is_on_floor():
 		if velocity.y < 0.0:
-			velocity.y -= jump_fall_gravity * _delta
+			velocity.y -= _jump_fall_gravity * _delta
 		else:
-			velocity.y -= jump_gravity * _delta
-
-
-func debug_start() -> void:
-	# codigos para reportar errores
-	if player_camera is not PlayerCamera:
-		printerr("referencia a  '@export var player_camera :PlayerCamera' es incorrecta")
-		set_process(false)
+			velocity.y -= _jump_gravity * _delta
 
 
 func calculate_better_jump() -> void:
-	jump_velocity = 2.0 * jump_height / jump_time_to_peak
-	jump_gravity = 2.0 * jump_height / (jump_time_to_peak * jump_time_to_peak)
-	jump_fall_gravity = 2.0 * jump_height / (jump_time_to_descend * jump_time_to_descend)
+	_jump_velocity = 2.0 * jump_height / jump_time_to_peak
+	_jump_gravity = 2.0 * jump_height / (jump_time_to_peak * jump_time_to_peak)
+	_jump_fall_gravity = 2.0 * jump_height / (jump_time_to_descend * jump_time_to_descend)
