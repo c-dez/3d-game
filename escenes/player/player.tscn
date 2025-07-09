@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cmshly5qv2v42"]
+[gd_scene load_steps=9 format=3 uid="uid://cmshly5qv2v42"]
 
 [ext_resource type="Script" uid="uid://bf2kc7nr8lpar" path="res://escenes/player/player.gd" id="1_jc7hd"]
 [ext_resource type="PackedScene" uid="uid://c3u4sjxsaosi3" path="res://escenes/player/camera/player_camera.tscn" id="2_sniej"]
@@ -14,6 +14,8 @@ albedo_color = Color(1, 0.0392157, 1, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_6mcrl"]
 material = SubResource("StandardMaterial3D_sniej")
 size = Vector3(0.895, 0.515, 0.285)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6mcrl"]
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_jc7hd")
@@ -34,3 +36,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.812631, 0)
 
 [node name="Actions" type="Node" parent="."]
 script = ExtResource("3_6mcrl")
+
+[node name="PlayerArea" type="Area3D" parent="."]
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerArea"]
+shape = SubResource("CapsuleShape3D_6mcrl")
+
+[connection signal="area_entered" from="PlayerArea" to="Actions" method="_on_player_area_area_entered"]
+[connection signal="area_exited" from="PlayerArea" to="Actions" method="_on_player_area_area_exited"]

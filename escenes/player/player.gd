@@ -27,8 +27,7 @@ var _coyote_time_max: float = 0.2
 var _coyote_time_counter: float = 0.0
 
 # Actions node
-@onready var actions:Actions = get_node("Actions")
-
+@onready var actions: Actions = get_node("Actions")
 
 
 func _ready() -> void:
@@ -38,17 +37,14 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	match MoveStateMachine.current_state:
-
 		MoveStateMachine.STATE.MOVING:
 			move()
 			jump(_delta)
 			coyote_time_jump(_delta)
 		MoveStateMachine.STATE.CLIMBING:
 			actions.climb()
-			pass
 		_:
 			pass
-
 
 
 	set_skin_visible_by_camera_distance(1.0)
