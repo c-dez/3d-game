@@ -55,7 +55,7 @@ func _physics_process(_delta: float) -> void:
 func rotate_skin(direction: Vector3) -> void:
 	var _delta: float = get_process_delta_time()
 
-	if direction.length() > 0.5:
+	if direction.length() > 0.0:
 		last_movement_direction = direction
 
 	# Calculamos el ángulo Y(rotacion horizontal) en el plano XZ
