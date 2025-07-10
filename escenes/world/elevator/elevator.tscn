@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://crfp3rvfw11r7"]
+
+[ext_resource type="Script" uid="uid://c316g75buu2gj" path="res://escenes/world/elevator/elevator.gd" id="1_pivtw"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fn3wa"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ohvm7"]
+size = Vector3(5, 0.1, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pivtw"]
+size = Vector3(1, 0.5, 1)
+
+[node name="Elevator" type="CharacterBody3D"]
+script = ExtResource("1_pivtw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_fn3wa")
+
+[node name="FloorMesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_ohvm7")
+
+[node name="TriggerArea" type="Area3D" parent="."]
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TriggerArea"]
+shape = SubResource("BoxShape3D_pivtw")
+
+[connection signal="body_entered" from="TriggerArea" to="." method="_on_trigger_area_body_entered"]
