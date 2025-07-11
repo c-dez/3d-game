@@ -18,6 +18,7 @@ size = Vector3(0.895, 0.515, 0.285)
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6mcrl"]
 
 [node name="Player" type="CharacterBody3D"]
+platform_on_leave = 1
 script = ExtResource("1_jc7hd")
 jump_height = 5.0
 

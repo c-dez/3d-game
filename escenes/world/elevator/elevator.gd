@@ -1,14 +1,27 @@
 class_name Elevator
-extends CharacterBody3D
+extends Path3D
 
-@onready var collision: CollisionShape3D = get_node("CollisionShape3D")
-@onready var floor_mesh: MeshInstance3D = get_node("FloorMesh")
+var loop: bool = false
+var speed: float = 2.0
+
+@onready var path: PathFollow3D = get_node("PathFollow3D")
+@onready var animation : AnimationPlayer = get_node("AnimationPlayer")
 
 func _ready() -> void:
-	collision.shape.set_size(floor_mesh.mesh.get_size()) 
+	# if not loop:
+	# 	animation.play("move")
+	pass
 
+func _physics_process(_delta: float) -> void:
+	# path.progress += speed * _delta
 
-func _on_trigger_area_body_entered(body: Node3D) -> void:
-	if body is Player:
-		print(body.name)
-	pass # Replace with function body.
+	if Input.is_action_just_pressed(Keybindings.action):
+		match path.progress_ratio:
+			0.0:
+				animation.play("move")
+			1.0:
+				animation.play_backwards("move")
+				
+			_:
+				pass
+	pass
