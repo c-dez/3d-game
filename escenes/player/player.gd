@@ -40,13 +40,13 @@ func _physics_process(_delta: float) -> void:
 			move()
 			jump(_delta)
 			coyote_time_jump(_delta)
+			gravity(_delta)
 
 		MoveStateMachine.STATE.CLIMBING:
 			actions.climb()
 			actions.jump_climb()
 		_:
 			pass
-
 
 	set_skin_visible_by_camera_distance(1.0)
 	move_and_slide()
@@ -107,6 +107,9 @@ func coyote_time_jump(_delta) -> void:
 func jump(_delta: float) -> void:
 	if Keybindings.buffer_jump() and is_on_floor():
 		velocity.y = _jump_velocity
+
+
+func gravity(_delta) -> void:
 	if not is_on_floor():
 		if velocity.y < 0.0:
 			velocity.y -= _jump_fall_gravity * _delta
