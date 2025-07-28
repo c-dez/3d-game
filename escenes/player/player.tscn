@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://cmshly5qv2v42"]
+[gd_scene load_steps=10 format=3 uid="uid://cmshly5qv2v42"]
 
 [ext_resource type="Script" uid="uid://bf2kc7nr8lpar" path="res://escenes/player/player.gd" id="1_jc7hd"]
 [ext_resource type="PackedScene" uid="uid://c3u4sjxsaosi3" path="res://escenes/player/camera/player_camera.tscn" id="2_sniej"]
 [ext_resource type="Script" uid="uid://jlxld0j100u6" path="res://escenes/player/actions.gd" id="3_6mcrl"]
+[ext_resource type="PackedScene" uid="uid://de1fsgd58ha3n" path="res://escenes/player/ui/player_ui.tscn" id="4_kmvfv"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_82eut"]
 
@@ -43,6 +44,8 @@ monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerArea"]
 shape = SubResource("CapsuleShape3D_6mcrl")
+
+[node name="PlayerUi" parent="." instance=ExtResource("4_kmvfv")]
 
 [connection signal="area_entered" from="PlayerArea" to="Actions" method="_on_player_area_area_entered"]
 [connection signal="area_exited" from="PlayerArea" to="Actions" method="_on_player_area_area_exited"]
