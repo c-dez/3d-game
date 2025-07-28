@@ -59,3 +59,22 @@ func set_action_buffer_timer() -> void:
 	action_buffer_timer.one_shot = true
 	action_buffer_timer.autostart = false
 	add_child(action_buffer_timer)
+
+
+# testing cambiar entre windowed y full screen
+	if Input.is_action_just_pressed("ui_accept"):
+		var current_mode = DisplayServer.window_get_mode()
+		if OS.get_name() == "Web":
+			# JavaScript.eval("document.body.requestFullscreen();")
+			pass
+		else:
+			match current_mode:
+				3:
+					DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+				0:
+					DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+					
+				_:
+					DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+
+					pass

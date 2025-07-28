@@ -15,6 +15,21 @@ size = Vector3(5, 5, 0.5)
 [sub_resource type="BoxMesh" id="BoxMesh_pivtw"]
 size = Vector3(5, 5, 0.5)
 
+[sub_resource type="Animation" id="Animation_ohvm7"]
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PathFollow3D:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5.03333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.0]
+}
+
 [sub_resource type="Animation" id="Animation_fn3wa"]
 resource_name = "move"
 length = 5.0
@@ -26,24 +41,9 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 5),
-"transitions": PackedFloat32Array(-1.5, 1),
+"transitions": PackedFloat32Array(-1.5, -1.5),
 "update": 0,
 "values": [0.0, 1.0]
-}
-
-[sub_resource type="Animation" id="Animation_ohvm7"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PathFollow3D:progress_ratio")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wb7ca"]
@@ -57,7 +57,8 @@ curve = SubResource("Curve3D_pivtw")
 script = ExtResource("1_pivtw")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="."]
-transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 0, 0)
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 100, 0)
+progress = 100.0
 loop = false
 
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="PathFollow3D"]
@@ -66,7 +67,7 @@ update_rotation = false
 update_scale = false
 
 [node name="AnimatableBody3D" type="AnimatableBody3D" parent="."]
-transform = Transform3D(-4.37114e-08, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, 4.37114e-08, 1.91069e-15, 0, 0, 0)
+transform = Transform3D(-4.37114e-08, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, 4.37114e-08, 1.91069e-15, 0, 100, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="AnimatableBody3D"]
 shape = SubResource("BoxShape3D_fn3wa")

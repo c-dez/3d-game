@@ -6,7 +6,7 @@
 
 [node name="PlayerCamera" type="SpringArm3D"]
 shape = SubResource("SphereShape3D_o66et")
-spring_length = 5.0
+spring_length = 0.0
 script = ExtResource("1_o66et")
 
 [node name="Camera3D" type="Camera3D" parent="."]
