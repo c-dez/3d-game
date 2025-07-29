@@ -35,6 +35,7 @@ mesh = SubResource("BoxMesh_6mcrl")
 
 [node name="PlayerCamera" parent="." instance=ExtResource("2_sniej")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.812631, 0)
+spring_length = 5.0
 
 [node name="Actions" type="Node" parent="."]
 script = ExtResource("3_6mcrl")

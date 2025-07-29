@@ -21,6 +21,9 @@ var action_buffer_timer: Timer
 var climb: String = "forward"
 var descend: String = "backwards"
 
+#mouse buttons
+var rmb:String = "rmb"
+
 
 func _ready() -> void:
 	set_jump_buffer_timer()
