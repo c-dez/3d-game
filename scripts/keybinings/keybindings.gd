@@ -22,7 +22,7 @@ var climb: String = "forward"
 var descend: String = "backwards"
 
 #mouse buttons
-var rmb:String = "rmb"
+var rmb: String = "rmb"
 
 
 func _ready() -> void:
@@ -32,7 +32,25 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	# state_keys()
+	change_between_full_and_window_mode()
+	
 	pass
+
+func change_between_full_and_window_mode() -> void:
+	# testing cambiar entre windowed y full screen
+	if Input.is_action_just_pressed("ui_accept"):
+		var current_mode = DisplayServer.window_get_mode()
+		if OS.get_name() == "Web":
+			# JavaScript.eval("document.body.requestFullscreen();")
+			pass
+		else:
+			match current_mode:
+				3:
+					DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+				0:
+					DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+				_:
+					DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 
 
 func buffer_jump() -> bool:
@@ -62,22 +80,3 @@ func set_action_buffer_timer() -> void:
 	action_buffer_timer.one_shot = true
 	action_buffer_timer.autostart = false
 	add_child(action_buffer_timer)
-
-
-# testing cambiar entre windowed y full screen
-	if Input.is_action_just_pressed("ui_accept"):
-		var current_mode = DisplayServer.window_get_mode()
-		if OS.get_name() == "Web":
-			# JavaScript.eval("document.body.requestFullscreen();")
-			pass
-		else:
-			match current_mode:
-				3:
-					DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-				0:
-					DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-					
-				_:
-					DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-
-					pass

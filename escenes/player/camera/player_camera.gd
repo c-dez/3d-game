@@ -8,7 +8,7 @@ extends SpringArm3D
 var mouse_sens: float = 0.25 / 3 # 60 fps
 var camera_input_direction: Vector2 = Vector2.ZERO
 
-var camera_distance:float = 5.0
+@export var camera_distance: float = 5.0
 
 
 func _ready() -> void:
@@ -29,12 +29,8 @@ func _process(_delta: float) -> void:
 	first_person()
 
 	
-func first_person()->void:
-	if Input.is_action_pressed(Keybindings.rmb):
-		spring_length = 0
-	else:
-		spring_length = camera_distance
-
+func first_person() -> void:
+	spring_length = 0.0 if Input.is_action_pressed(Keybindings.rmb) else camera_distance
 
 
 func _unhandled_input(event: InputEvent) -> void:
