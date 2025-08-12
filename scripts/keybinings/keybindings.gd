@@ -13,7 +13,7 @@ var buffer_active_time: float = 0.3
 var jump: String = "jump"
 var jump_buffer_timer: Timer
 
-# Actions
+# ClimbLadder
 var action: String = "action"
 var action_buffer_timer: Timer
 

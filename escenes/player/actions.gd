@@ -1,4 +1,4 @@
-class_name Actions
+class_name ClimbLadder
 extends Node
 
 @export var climb_speed: float = 4.0
@@ -13,13 +13,13 @@ func _process(_delta: float) -> void:
 	
 
 func change_state_between_moving_or_climbing() -> void:
-	if not can_climb and MoveStateMachine.current_state == MoveStateMachine.STATE.CLIMBING:
+	if not can_climb and MoveStateMachine.current_state == MoveStateMachine.STATE.CLIMBING_LADDER:
 		MoveStateMachine.current_state = MoveStateMachine.STATE.MOVING
 
 	match MoveStateMachine.current_state:
 		MoveStateMachine.STATE.MOVING:
 			if (Keybindings.buffer_action()) and can_climb:
-				MoveStateMachine.current_state = MoveStateMachine.STATE.CLIMBING
+				MoveStateMachine.current_state = MoveStateMachine.STATE.CLIMBING_LADDER
 
 		# ME GUSTA MAS SOLTARSE DE ESCALERA SOLO CON jump_climb()
 		# MoveStateMachine.STATE.CLIMBING:

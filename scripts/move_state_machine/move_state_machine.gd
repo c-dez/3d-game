@@ -4,7 +4,7 @@ extends Node
 
 enum STATE {
 	MOVING,
-	CLIMBING,
+	CLIMBING_LADDER,
 }
 
 var current_state:int = 0

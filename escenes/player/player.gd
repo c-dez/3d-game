@@ -1,8 +1,9 @@
 class_name Player
 extends CharacterBody3D
+# controla todo lo relacionado a movimiento/ camera
 
 @export_group("Movimiento")
-@export var move_speed: float = 8.0
+@export var move_speed: float = 12.0
 
 # better jump
 # la combinacion de estas variables modifica propiedades de salto y gravedad
@@ -18,16 +19,16 @@ var last_movement_direction := Vector3.FORWARD
 const _ROTATION_SPEED: float = 12.0
 
 # se calcula en calculate_better_jump()
-var _jump_velocity
-var _jump_gravity
-var _jump_fall_gravity
+var _jump_velocity: float
+var _jump_gravity: float
+var _jump_fall_gravity: float
 
 #coyote time
 var _coyote_time_max: float = 0.2
 var _coyote_time_counter: float = 0.0
 
-# Actions node
-@onready var actions: Actions = get_node("Actions")
+# ClimbLadder node
+@onready var climb_ladder: ClimbLadder = get_node("ClimbLadder")
 
 
 func _ready() -> void:
@@ -42,9 +43,9 @@ func _physics_process(_delta: float) -> void:
 			coyote_time_jump(_delta)
 			gravity(_delta)
 
-		MoveStateMachine.STATE.CLIMBING:
-			actions.climb()
-			actions.jump_climb()
+		MoveStateMachine.STATE.CLIMBING_LADDER:
+			climb_ladder.climb()
+			climb_ladder.jump_climb()
 		_:
 			pass
 

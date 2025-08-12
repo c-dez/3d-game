@@ -2,7 +2,7 @@ class_name PlayerUi
 extends CanvasLayer
 
 
-@onready var texture_bar:TextureProgressBar = get_node("TextureProgressBar")
+@onready var texture_bar:TextureProgressBar = get_node("Control/TextureProgressBar")
 @onready var label:Label = get_node("Label")
 
 func _ready() -> void:

@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="3d-game"
+config/tags=PackedStringArray("focus")
 run/main_scene="uid://c6i1bgtyhwimm"
 config/features=PackedStringArray("4.4", "Forward Plus")
 run/max_fps=60
@@ -26,6 +27,10 @@ PlayerStats="*res://scripts/player_stats/player_stats.gd"
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
+
+[dotnet]
+
+project/assembly_name="3d-game"
 
 [file_customization]
 

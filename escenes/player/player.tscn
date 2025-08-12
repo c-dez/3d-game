@@ -37,7 +37,7 @@ mesh = SubResource("BoxMesh_6mcrl")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.812631, 0)
 spring_length = 5.0
 
-[node name="Actions" type="Node" parent="."]
+[node name="ClimbLadder" type="Node" parent="."]
 script = ExtResource("3_6mcrl")
 
 [node name="PlayerArea" type="Area3D" parent="."]
@@ -48,5 +48,5 @@ shape = SubResource("CapsuleShape3D_6mcrl")
 
 [node name="PlayerUi" parent="." instance=ExtResource("4_kmvfv")]
 
-[connection signal="area_entered" from="PlayerArea" to="Actions" method="_on_player_area_area_entered"]
-[connection signal="area_exited" from="PlayerArea" to="Actions" method="_on_player_area_area_exited"]
+[connection signal="area_entered" from="PlayerArea" to="ClimbLadder" method="_on_player_area_area_entered"]
+[connection signal="area_exited" from="PlayerArea" to="ClimbLadder" method="_on_player_area_area_exited"]
