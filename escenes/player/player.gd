@@ -49,7 +49,7 @@ func _physics_process(_delta: float) -> void:
 		_:
 			pass
 
-	set_skin_visible_by_camera_distance(1.0)
+	player_camera.set_skin_visible_by_camera_distance(skin,1.0)
 	move_and_slide()
 
 
@@ -66,8 +66,8 @@ func rotate_skin(direction: Vector3) -> void:
 	skin.rotation.y = lerp_angle(skin.rotation.y, target_angle, _ROTATION_SPEED * _delta)
 
 
-func set_skin_visible_by_camera_distance(camera_distance_threshold: float) -> void:
-	skin.visible = player_camera.get_hit_length() > camera_distance_threshold
+# func set_skin_visible_by_camera_distance(camera_distance_threshold: float) -> void:
+# 	skin.visible = player_camera.get_hit_length() > camera_distance_threshold
 
 
 func move() -> void:

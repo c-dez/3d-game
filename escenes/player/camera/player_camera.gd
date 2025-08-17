@@ -36,3 +36,8 @@ func first_person() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		camera_input_direction = event.screen_relative * mouse_sens
+
+
+## oculta mesh si la la distancia de camera es menor a threshold
+func set_skin_visible_by_camera_distance(mesh: MeshInstance3D, threshold: float) -> void:
+	mesh.visible = get_hit_length() > threshold
