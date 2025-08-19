@@ -29,8 +29,19 @@ func _process(_delta: float) -> void:
 	first_person()
 
 	
+
+	
 func first_person() -> void:
-	spring_length = 0.0 if Input.is_action_pressed(Keybindings.rmb) else camera_distance
+	# spring_length = 0.0 if Input.is_action_pressed(Keybindings.rmb) else camera_distance
+	if Input.is_action_pressed(Keybindings.rmb):
+		MoveStateMachine.current_state = MoveStateMachine.STATE.AIMING
+		spring_length = camera_distance
+	else:
+		MoveStateMachine.current_state = MoveStateMachine.STATE.MOVING
+		spring_length = 0.0
+		
+
+
 
 
 func _unhandled_input(event: InputEvent) -> void:

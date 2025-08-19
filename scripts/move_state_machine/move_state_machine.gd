@@ -4,6 +4,7 @@ extends Node
 
 enum STATE {
 	MOVING,
+	AIMING,
 	CLIMBING_LADDER,
 }
 

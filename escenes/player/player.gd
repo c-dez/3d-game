@@ -66,10 +66,6 @@ func rotate_skin(direction: Vector3) -> void:
 	skin.rotation.y = lerp_angle(skin.rotation.y, target_angle, _ROTATION_SPEED * _delta)
 
 
-# func set_skin_visible_by_camera_distance(camera_distance_threshold: float) -> void:
-# 	skin.visible = player_camera.get_hit_length() > camera_distance_threshold
-
-
 func move() -> void:
 	# movimiento normalizado combinando los inputs de jugador con la direccion de que la camera mira
 	var raw_input: Vector2 = Input.get_vector(Keybindings.left, Keybindings.right, Keybindings.forward, Keybindings.backwards)
